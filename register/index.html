@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+	<meta charset="utf-8" />
+	<title>Cabs Online - Registration</title>
+	<script src="../ajax.js"></script>
+	<script src="validate.js"></script>
+</head>
+<body>
+	<h1>Cabs Online - Registration</h1>
+	<article>
+		<nav>
+			<p><a href="..">Return to Homepage</a></p>
+		</nav>
+		<section>
+			<form id="register" target="register.php" action="POST">
+				<p>
+					<input type="email" id="email" name="email" placeholer="Email Address" required="required" minlength="1" maxlength="32" /><br />
+					<input type="password" id="pwd" name="pwd" placeholder="Password" required="required" minlength="1" maxlength="32" /><br />
+					<input type="password" id="pwdConfirm" name="pwdConfirm" placeholder="Confirm Password" required="required" minlength="1" maxlength="32" /><br />
+					<input type="text" id="cname" name="cname" placeholder="Full Name" required="required" minlength="1" maxlength="64" /><br />
+					<input type="text" id="phone" name="phone" placeholder="Phone Number" required="required" minlength="8" />
+				</p>
+				<p>
+					<input type="submit" value="Register" />
+				</p>
+			</form>
+		</section>
+		<section id="response"></section>
+	</article>
+</body>
+</head>
+</html>
