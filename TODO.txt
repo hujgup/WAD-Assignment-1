@@ -1,4 +1,1 @@
-Remove all JavaScript
-Conform to specified file names
-Login+
-
+Bookings

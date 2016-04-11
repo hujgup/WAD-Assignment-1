@@ -1,18 +1,27 @@
+<?php
+	session_start();
+	require_once("register_logic.php");
+	$message = register();
+	if ($message === TRUE) {
+		require_once("login_logic.php");
+		login($_POST["email"],$_POST["pwd"]);
+		require_once("redirect.php");
+		redirect("booking.php");
+	}
+?>
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
 	<meta charset="utf-8" />
 	<title>Cabs Online - Registration</title>
-	<script src="../ajax.js"></script>
-	<script src="validate.js"></script>
 </head>
 <body>
 	<h1>Cabs Online - Registration</h1>
 	<article>
 		<nav>
-			<p><a href="..">Return to Homepage</a></p>
+			<p><a href=".">Return to Homepage</a></p>
 		</nav>
-		<section>
+		<section id="request">
 			<form id="register" target="register.php" action="POST">
 				<p>
 					<input type="email" id="email" name="email" placeholer="Email Address" required="required" minlength="1" maxlength="32" /><br />
@@ -26,7 +35,13 @@
 				</p>
 			</form>
 		</section>
-		<section id="response"></section>
+		<section id="response">
+			<?php
+				if ($message !== "") {
+					echo $message;
+				}
+			?>
+		</section>
 	</article>
 </body>
 </head>

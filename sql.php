@@ -18,8 +18,8 @@
 		public static function escape($str) {
 			return $this->_sql->real_escape_string($str);
 		}
-		public static function encodeString($str) {
-			return "'".$this->escape($str)."'";
+		public static function encodeString($str,$preEscaped = FALSE) {
+			return "'".($preEscaped ? $str : $this->escape($str))."'";
 		}
 		private function resolveArg(&$arg,$default = "") {
 			if ($arg === NULL) {
