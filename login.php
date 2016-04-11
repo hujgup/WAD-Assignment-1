@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	require_once("login_logic.php");
-	require_once("expecting.php");
+	require_once("backend/login_logic.php");
+	require_once("backend/common/expecting.php");
 
 	$message = NULL;
 	if (expecting($_POST,array("email","pwd"))) {
@@ -9,7 +9,7 @@
 	}
 
 	if ($message === TRUE) {
-		require_once("redirect.php");
+		require_once("backend/common/redirect.php");
 		redirect("booking.php");
 	}
 ?>

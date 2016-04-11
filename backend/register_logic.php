@@ -1,7 +1,7 @@
 <?php
-	require_once("expecting.php");
-	require_once("sql.php");
-	require_once("sql_table_Customers.php");
+	require_once(__DIR__."common/expecting.php");
+	require_once(__DIR__."common/sql.php");
+	require_once(__DIR__."common/sql_table_Customers.php");
 
 	function format_error_message($errors) {
 		$errors = "<p>Could not complete registration:<br />".$errors."</p>";
