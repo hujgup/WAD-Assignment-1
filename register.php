@@ -1,12 +1,21 @@
 <?php
-	session_start();
-	require_once("register_logic.php");
-	$message = register();
-	if ($message === TRUE) {
-		require_once("login_logic.php");
-		login($_POST["email"],$_POST["pwd"]);
-		require_once("redirect.php");
-		redirect("booking.php");
+	require_once("backend/common/session.php");
+
+	$message = NULL;
+	$redirect = Session::isActive();
+	if (!$redirect) {
+		require_once("backend/register_logic.php");
+		$message = register();
+		$redirect = $message === TRUE;
+	}
+	if ($redirect) {
+		require_once("backend/login_logic.php");
+		if (login($_POST["email"],$_POST["pwd"]) ) {
+			require_once("backend/common/redirect.php");
+			redirect("booking.php");
+		} else {
+			$message = "<p>You are now registered in the system, but a problem occured when trying to automatically log you in. Please manually log in <a href='login.php'>here</a>.</p>";
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -22,9 +31,9 @@
 			<p><a href=".">Return to Homepage</a></p>
 		</nav>
 		<section id="request">
-			<form id="register" target="register.php" action="POST">
+			<form id="register" action="register.php" method="POST">
 				<p>
-					<input type="email" id="email" name="email" placeholer="Email Address" required="required" minlength="1" maxlength="32" /><br />
+					<input type="email" id="email" name="email" placeholder="Email Address" required="required" minlength="1" maxlength="32" /><br />
 					<input type="password" id="pwd" name="pwd" placeholder="Password" required="required" minlength="1" maxlength="32" /><br />
 					<input type="password" id="pwdConfirm" name="pwdConfirm" placeholder="Confirm Password" required="required" minlength="1" maxlength="32" /><br />
 					<input type="text" id="cname" name="cname" placeholder="Full Name" required="required" minlength="1" maxlength="64" /><br />

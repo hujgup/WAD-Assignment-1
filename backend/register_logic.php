@@ -1,7 +1,7 @@
 <?php
-	require_once(__DIR__."common/expecting.php");
-	require_once(__DIR__."common/sql.php");
-	require_once(__DIR__."common/sql_table_Customers.php");
+	require_once(__DIR__."/common/expecting.php");
+	require_once(__DIR__."/common/sql.php");
+	require_once(__DIR__."/common/sql_table_Customers.php");
 
 	function format_error_message($errors) {
 		$errors = "<p>Could not complete registration:<br />".$errors."</p>";
@@ -16,7 +16,7 @@
 		$pwdConfirm = "pwdConfirm";
 		$name = "name";
 		$phone = "phone";
-		if ($expecting($_POST,array($email,$pwd,$pwdConfirm,$name,$phone))) {
+		if (expecting($_POST,array($email,$pwd,$pwdConfirm,$name,$phone))) {
 			$email = trim($_POST[$email]);
 			$pwd = trim($_POST[$pwd]);
 			$pwdConfirm = trim($_POST[$pwdConfirm]);
@@ -37,7 +37,7 @@
 				$errors .= "<br />Password too long: Cannot exceed 32 characters.";
 			}
 			if (strlen($name) > 32) {
-				$errors ,= "<br />Name too long: Cannot exceed 64 characters.";
+				$errors .= "<br />Name too long: Cannot exceed 64 characters.";
 			}
 			if (strlen($phone) > 10) {
 				$errors .= "<br />Phone number too long: Cannot exceed 10 non-whitespace characters.";

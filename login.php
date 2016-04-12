@@ -1,14 +1,18 @@
 <?php
-	session_start();
-	require_once("backend/login_logic.php");
-	require_once("backend/common/expecting.php");
+	require_once("backend/common/session.php");
 
 	$message = NULL;
-	if (expecting($_POST,array("email","pwd"))) {
-		$message = login($_POST["email"],$_POST["pwd"]);
-	}
+	$redirect = Session::isActive();
+	if (!$redirect) {
+		require_once("backend/common/expecting.php");
+		require_once("backend/login_logic.php");
 
-	if ($message === TRUE) {
+		if (expecting($_POST,array("email","pwd"))) {
+			$message = login($_POST["email"],$_POST["pwd"]);
+		}
+		$redirect = $message === TRUE;
+	}
+	if ($redirect) {
 		require_once("backend/common/redirect.php");
 		redirect("booking.php");
 	}
@@ -26,9 +30,9 @@
 			<p><a href=".">Return to Homepage</a></p>
 		</nav>
 		<section>
-			<form id="login" target="login.php" action="POST">
+			<form id="login" action="login.php" method="POST">
 				<p>
-					<input type="email" id="email" name="email" placeholer="Email Address" required="required" minlength="1" maxlength="32" /><br />
+					<input type="email" id="email" name="email" placeholder="Email Address" required="required" minlength="1" maxlength="32" /><br />
 					<input type="password" id="pwd" name="pwd" placeholder="Password" required="required" minlength="1" maxlength="32" /><br />
 				</p>
 				<p>

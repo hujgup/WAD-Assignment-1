@@ -1,10 +1,14 @@
 <?php
 	$sqlHost = "";
-	$sqlUsername = "";
-	$sqlPassword = "";
-	$sqlDatabase = "";
+	$sqlUsername = "s100593584";
+	$sqlPassword = "180696";
+	$sqlDatabase = "s100593584_db";
 
 	function create_connection() {
+		global $sqlHost;
+		global $sqlUsername;
+		global $sqlPassword;
+		global $sqlDatabase;
 		return new mysqli($sqlHost,$sqlUsername,$sqlPassword,$sqlDatabase);
 	}
 

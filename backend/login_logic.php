@@ -1,7 +1,7 @@
 <?php
 	// This file expects a session to be open
-	require_once(__DIR__."common/sql.php");
-	require_once(__DIR__."common/sql_table_Customers.php");
+	require_once(__DIR__."/common/sql.php");
+	require_once(__DIR__."/common/sql_table_Customers.php");
 
 	function format_error_message($errors) {
 		$errors = "<p>Could not complete login:<br />".$errors."</p>";
