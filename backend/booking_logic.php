@@ -5,6 +5,7 @@
 	require_once(__DIR__."/common/sql_table_Customers.php");
 	require_once(__DIR__."/common/sql_table_Bookings.php");
 	require_once(__DIR__."/common/format.php");
+	require_once(__DIR__."/common/timing.php");
 
 	function resolve_post_ref(&$var) {
 		$var = trim($_POST[$var]);
@@ -40,11 +41,7 @@
 		return $res;
 	}
 	function time_in_past($date,$time) {
-		$timezone = new DateTimeZone(date_default_timezone_get());
-		$now = microtime(true);
-		$time = new DateTime($date."T".$time.":00",$timezone);
-		$time = $time->getTimestamp();
-		return $time < $now;
+		return seconds_until($date,$time) < 0;
 	}
 
 	function book() {
@@ -67,7 +64,7 @@
 			resolve_post_ref($destination);
 			resolve_post_ref($pickupDate);
 			resolve_post_ref($pickupTime);
-			$unitExists = isset($_POST[$unit]);
+			$unitExists = isset($_POST[$unit]) && $_POST["unit"] !== "";
 			if ($unitExists) {
 				resolve_post_ref($unit);
 			}
@@ -84,8 +81,12 @@
 			if (strlen($phone) > 10) {
 				$errors .= "<br />Phone number too long: Cannot exceed 10 non-whitespace characters.";
 			}
-			if (intval($streetNum) <= 0) {
-				$errors .= "<br />Street number inavlid: Only positive values are allowed.";
+			$streetNumInt = intval($streetNum);
+			if (floatval($streetNum) != $streetNumInt) {
+				$errors .= "<br />Street number invalid: Only integers are allowed.";
+			}
+			if ($streetNumInt <= 0) {
+				$errors .= "<br />Street number invalid: Only positive values are allowed.";
 			}
 			if (strlen($streetName) > 32) {
 				$errors .= "<br />Street name too long: Cannot exceed 32 characters.";
@@ -101,6 +102,15 @@
 			}
 			if (!preg_match("/([01]\d|2[0-3])\:[0-5]\d/",$pickupTime)) {
 				$errors .= "<br />Pickup time invalid: Must be in HH:MM format.";
+			}
+			if ($unitExists) {
+				$unitInt = intval($unit);
+				if (floatval($unit) != $unitInt) {
+					$errors .= "<br />Unit number invalid: Only integers are allowed.";
+				}
+				if ($unitInt <= 0) {
+					$errors .= "<br />Unit number invalid: Only positive values are allowed.";
+				}
 			}
 			if ($errors === "") {
 				if (time_in_past($pickupDate,$pickupTime)) {

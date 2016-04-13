@@ -19,6 +19,9 @@
 			$this->_sql = $sql;
 			$this->name = $name;
 		}
+		public static function unescape($str) {
+			return stripslashes($str);
+		}
 		public function escape($str) {
 			return $this->_sql->real_escape_string($str);
 		}
@@ -32,9 +35,12 @@
 				$arg = implode(",",$arg);
 			}
 		}
-		public function select($columns = NULL,$whereClause = "") {
+		public function select($columns = NULL,$whereClause = "",$additional = "") {
 			$this->resolveArg($columns,"*");
 			$query = "SELECT ".$columns." FROM ".$this->name;
+			if ($additional) {
+				$query .= " ".$additional;
+			}
 			if ($whereClause) {
 				$query .= " WHERE ".$whereClause;
 			}
@@ -55,7 +61,7 @@
 			foreach ($keyValueSet as $key => $value) {
 				$query .= $key."=".$value.",";
 			}
-			$query = substr("0",strlen($query) - 1,$query);
+			$query = substr($query,0,strlen($query) - 1);
 			$query .= " WHERE ".$whereClause.";";
 			return $this->_sql->query($query);
 		}
@@ -81,5 +87,17 @@
 		public function create($entries) {
 			return $this->exists() ? FALSE : $this->_sql->query("CREATE TABLE ".$this->name." (".implode(",",$entries).");");
 		}
+	}
+
+	function get_rows($result) {
+		$res = array();
+		while ($row = $result->fetch_assoc()) {
+			$out = array();
+			foreach ($row as $key => $value) {
+				$out[$key] = MySQLTable::unescape($value);
+			}
+			$res[] = $out;
+		}
+		return $res;
 	}
 ?>

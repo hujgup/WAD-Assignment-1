@@ -30,14 +30,14 @@
 				<p><input type="text" name="phone" placeholder="Passenger contact number" required="required" /></p>
 				<fieldset class="small-field">
 					<legend>Pickup address</legend>
-					<p><input type="number" name="unit" placeholder="Unit number" minvalue="1" /></p>
-					<p><input type="number" name="streetNum" placeholder="Street number" minvalue="1" required="required" /></p>
+					<p><input type="number" name="unit" placeholder="Unit number" min="1" /></p>
+					<p><input type="number" name="streetNum" placeholder="Street number" min="1" required="required" /></p>
 					<p><input type="text" name="streetName" placeholder="Street name" required="required" /></p>
 					<p><input type="text" name="suburb" placeholder="Suburb" required="required" /></p>
 				</fieldset>
 				<p><input type="text" name="dest" placeholder="Destination suburb" required="required" /></p>
 				<p><input type="text" name="pickupDate" placeholder="Pickup date (YYYY-MM-DD)" required="required" /></p>
-				<p><input type="text" name="pickupTime" placeholder="Pickup time (HH:MM)" required="required" /></p>
+				<p><input type="text" name="pickupTime" placeholder="Pickup time (HH:MM, 24h time)" required="required" /></p>
 				<p><input type="submit" value="Book" />
 			</form>
 		</section>
