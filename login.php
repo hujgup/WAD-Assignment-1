@@ -39,6 +39,7 @@
 					<input type="submit" value="Login" />
 				</p>
 			</form>
+			<p>Don't yet have a Cabs Online accound? <a href="register.php">Register here</a>!</p>
 		</section>
 		<section id="response">
 			<?php

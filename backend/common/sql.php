@@ -1,5 +1,5 @@
 <?php
-	$sqlHost = "";
+	$sqlHost = "mysql.ict.swin.edu.au";
 	$sqlUsername = "s100593584";
 	$sqlPassword = "180696";
 	$sqlDatabase = "s100593584_db";
@@ -19,10 +19,10 @@
 			$this->_sql = $sql;
 			$this->name = $name;
 		}
-		public static function escape($str) {
+		public function escape($str) {
 			return $this->_sql->real_escape_string($str);
 		}
-		public static function encodeString($str,$preEscaped = FALSE) {
+		public function encodeString($str,$preEscaped = FALSE) {
 			return "'".($preEscaped ? $str : $this->escape($str))."'";
 		}
 		private function resolveArg(&$arg,$default = "") {
@@ -59,14 +59,14 @@
 			$query .= " WHERE ".$whereClause.";";
 			return $this->_sql->query($query);
 		}
-		public function exists($primaryKeyName = NULL,$primaryKayValue = NULL) {
+		public function exists($primaryKeyName = NULL,$primaryKeyValue = NULL,$encodeString = TRUE) {
 			$res = FALSE;
 			if ($primaryKeyName === NULL || $primaryKeyValue === NULL) {
-				$result = $this->_sql->query("SHOW TABLES LIKE ".$this->name.";");
+				$result = $this->_sql->query("SHOW TABLES LIKE '".$this->name."';");
 				$res = mysqli_num_rows($result) !== 0;
 				$result->close();
 			} else {
-				$result = $this->select(NULL,$primaryKeyName."=".$primaryKeyValue);
+				$result = $this->select(NULL,$primaryKeyName."=".($encodeString ? $this->encodeString($primaryKeyValue) : $primaryKeyValue));
 				$res = mysqli_num_rows($result) !== 0;
 				$result->close();
 			}
