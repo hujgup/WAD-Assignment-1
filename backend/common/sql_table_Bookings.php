@@ -9,7 +9,7 @@
 		"streetNum INT NOT NULL",
 		"streetName VARCHAR(32) NOT NULL",
 		"suburb VARCHAR(32) NOT NULL",
-		"destination VARCHAR(32) NOT NULL,
+		"destination VARCHAR(32) NOT NULL",
 		"pickupDate CHAR(10) NOT NULL",
 		"pickupTime CHAR(5) NOT NULL",
 		"status VARCHAR(10) NOT NULL DEFAULT 'unassigned'",

@@ -40,11 +40,10 @@
 		return $res;
 	}
 	function time_in_past($date,$time) {
-		$timezone = ew DateTimeZone(date_default_timezone_get());
-		$timezone = timezone_offset_get($timezone,new DateTime());
-		$timezone = sprintf("%s%02d:%02d",($timezone >= 0 ? "+" : "-"),abs($timezone/3600),abs($timezone%3600)); // Credit to "Damien dot Garrido dot Work at gmail dot com" in the user comments on the following PHP documentation page: http://php.net/manual/en/function.date-default-timezone-get.php
+		$timezone = new DateTimeZone(date_default_timezone_get());
 		$now = microtime(true);
-		$time = new DateTime($date."T".$time.":00".$timezone)->format("u");
+		$time = new DateTime($date."T".$time.":00",$timezone);
+		$time = $time->getTimestamp();
 		return $time < $now;
 	}
 
@@ -59,7 +58,7 @@
 		$destination = "dest";
 		$pickupDate = "pickupDate";
 		$pickupTime = "pickupTime";
-		if (expecting($_POST,array($passengerName,$phone,$streetNum,$streetName,$suburb,$destination,$pickupDate,$pickupTime)) {
+		if (expecting($_POST,array($passengerName,$phone,$streetNum,$streetName,$suburb,$destination,$pickupDate,$pickupTime))) {
 			resolve_post_ref($passengerName);
 			resolve_post_ref($phone);
 			resolve_post_ref($streetNum);
@@ -154,7 +153,7 @@
 						$msg = array(
 							"date" => $pickupDate,
 							"time" => $pickupTime,
-							"ref" => $sql->query("SELECT LAST_INSERT_ID();");
+							"ref" => $sql->insert_id
 						);
 					}
 					$sql->close();
