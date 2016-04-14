@@ -4,7 +4,7 @@
 	*/
 	class Customers
 	{
-		public const NAME = 'Customers';
+		const NAME = 'Customers';
 		// Can't declare arrays as const in the PHP version used on Mercury - using const syntax to incicate the value should be treated as such
 		public static $STRUCTURE = array(
 			'email VARCHAR(32) PRIMARY KEY NOT NULL',

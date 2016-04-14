@@ -63,7 +63,7 @@
 				$res .= '</tr>';
 				foreach ($rowsToPrint as $row) {
 					$res .= '<tr>';
-					$res .= write_td($row['referenceNumber"]);
+					$res .= write_td($row['referenceNumber']);
 					$res .= write_td($row['cName']);
 					$res .= write_td($row['pName']);
 					$res .= write_td($row['phone']);

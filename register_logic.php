@@ -63,7 +63,7 @@
 					$table = new MySQLTable($sql, Customers::NAME);
 					$email = $table->encode_string($email);
 					// No point checking if things exist after just creating the table
-					if (!$table->create(Customers::STRUCTURE)) {
+					if (!$table->create(Customers::$STRUCTURE)) {
 						if ($table->exists('email', $email, FALSE)) {
 							$errors .= '<br />Email address is already in use.';
 						}

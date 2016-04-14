@@ -4,7 +4,7 @@
 	*/
 	class Bookings
 	{
-		public const NAME = 'Bookings';
+		const NAME = 'Bookings';
 		// Can't declare arrays as const in the PHP version used on Mercury - using const syntax to incicate the value should be treated as such
 		public static $STRUCTURE = array(
 			'referenceNumber INT NOT NULL AUTO_INCREMENT',

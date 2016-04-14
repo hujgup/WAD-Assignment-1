@@ -164,7 +164,7 @@
 					} else {
 						$table = new MySQLTable($sql, Bookings::NAME);
 						$noEmail = '<br />No user is registered under the given email address.';
-						$table->create(Bookings::STRUCTURE);
+						$table->create(Bookings::$STRUCTURE);
 						$entries = array(
 							$table->encode_string($passengerName),
 							$table->encode_string($email),
