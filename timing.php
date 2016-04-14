@@ -1,5 +1,12 @@
 <?php
 	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Provides a function for calculating the seconds until a date/time.
+	*/
+
+	/*
 		Returns the number of seconds until a given date and time.
 
 		@param $date - A date of format YYYY-MM-DD.

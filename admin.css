@@ -1,3 +1,9 @@
+/*
+	COS30030 Web Application Development - Assignment 1
+	Author: Jake Tunaley (Student I.D. 100593584)
+
+	Purpose: Styles the "unassigned" table on the Admin page.
+*/
 .unassigned, .unassigned th, .unassigned td {
 	border:1px solid black;
 	border-collapse:collapse;

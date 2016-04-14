@@ -1,5 +1,12 @@
 <?php
 	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Defines a MySQL table for Bookings.
+	*/
+
+	/*
 		Defines constants for the Bookings table.
 	*/
 	class Bookings

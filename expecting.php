@@ -1,5 +1,12 @@
 <?php
 	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Defines a function for checking whether all expected values are present.
+	*/
+
+	/*
 		Determines whether all of the given keys are present in the given variable.
 
 		@param $var - array - The variable that should contain the keys.

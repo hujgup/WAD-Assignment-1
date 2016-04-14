@@ -1,3 +1,8 @@
+COS30030 Web Application Development - Assignment 1
+Author: Jake Tunaley (Student I.D. 100593584)
+
+Purpose: Lists all the MySQL queries used in this solution.
+
 CREATE TABLE Customers (email VARCHAR(32) PRIMARY KEY NOT NULL,password VARCHAR(32) NOT NULL,name VARCHAR(64) NOT NULL,phone VARCHAR(10) NOT NULL);SHOW TABLES LIKE 'Customers';
 SELECT * FROM Customers WHERE email='someone@example.com';
 INSERT INTO Customers VALUES ('someone@example.com','password','John Citizen','9999999999');

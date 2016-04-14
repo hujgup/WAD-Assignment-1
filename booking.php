@@ -1,4 +1,11 @@
 <?php
+	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Provides the interface for the Booking page.
+	*/
+
 	require_once('session.php');
 
 	$message = '';

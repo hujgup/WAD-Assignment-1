@@ -1,4 +1,11 @@
 <?php
+	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Provides the logic for the Login page.
+	*/
+
 	require_once(__DIR__.'/sql.php');
 	require_once(__DIR__.'/sql_table_Customers.php');
 	require_once(__DIR__.'/format.php');

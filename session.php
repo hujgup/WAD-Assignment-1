@@ -1,5 +1,12 @@
 <?php
 	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Provides a wrapper around the $_SESSION superglobal.
+	*/
+
+	/*
 		Provides a wrapper around the $_SESSION superglobal.
 	*/
 	class Session

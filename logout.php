@@ -1,4 +1,11 @@
 <?php
+	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Provides both the interface and the logic for the Logout page.
+	*/
+
 	require_once('session.php');
 ?>
 <!DOCTYPE html>

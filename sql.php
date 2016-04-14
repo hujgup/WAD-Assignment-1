@@ -1,4 +1,11 @@
 <?php
+	/*
+		COS30030 Web Application Development - Assignment 1
+		Author: Jake Tunaley (Student I.D. 100593584)
+
+		Purpose: Defines an abstraction layer around PHP's mysqli library.
+	*/
+
 	$sqlHost = 'mysql.ict.swin.edu.au';
 	$sqlUsername = 's100593584';
 	$sqlPassword = '180696';
