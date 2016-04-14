@@ -1,11 +1,11 @@
 <?php
-	require_once("backend/common/session.php");
+	require_once("session.php");
 
 	$message = NULL;
 	$redirect = Session::isActive();
 	if (!$redirect) {
-		require_once("backend/common/expecting.php");
-		require_once("backend/login_logic.php");
+		require_once("expecting.php");
+		require_once("login_logic.php");
 
 		if (expecting($_POST,array("email","pwd"))) {
 			$message = login($_POST["email"],$_POST["pwd"]);
@@ -13,7 +13,7 @@
 		$redirect = $message === TRUE;
 	}
 	if ($redirect) {
-		require_once("backend/common/redirect.php");
+		require_once("redirect.php");
 		redirect("booking.php");
 	}
 ?>

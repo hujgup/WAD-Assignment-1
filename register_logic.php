@@ -1,8 +1,8 @@
 <?php
-	require_once(__DIR__."/common/expecting.php");
-	require_once(__DIR__."/common/sql.php");
-	require_once(__DIR__."/common/sql_table_Customers.php");
-	require_once(__DIR__."/common/format.php");
+	require_once(__DIR__."/expecting.php");
+	require_once(__DIR__."/sql.php");
+	require_once(__DIR__."/sql_table_Customers.php");
+	require_once(__DIR__."/format.php");
 
 	function format_register_error($errors) {
 		return format_error_message("registration",$errors);
@@ -52,7 +52,7 @@
 					$table = new MySQLTable($sql,$customersName);
 					$email = $table->encodeString($email);
 					if (!$table->create($customersStructure)) { // No point checking if things exist after just creating the table
-						if ($table->exists("email",$email)) {
+						if ($table->exists("email",$email,FALSE)) {
 							$errors .= "<br />Email address is already in use.";
 						}
 					}

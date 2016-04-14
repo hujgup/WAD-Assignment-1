@@ -1,5 +1,5 @@
 <?php
-	require_once("backend/common/session.php");
+	require_once("session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en-AU">

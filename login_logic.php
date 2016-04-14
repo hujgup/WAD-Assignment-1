@@ -1,9 +1,8 @@
 <?php
-	// This file expects a session to be open
-	require_once(__DIR__."/common/sql.php");
-	require_once(__DIR__."/common/sql_table_Customers.php");
-	require_once(__DIR__."/common/format.php");
-	require_once(__DIR__."/common/session.php");
+	require_once(__DIR__."/sql.php");
+	require_once(__DIR__."/sql_table_Customers.php");
+	require_once(__DIR__."/format.php");
+	require_once(__DIR__."/session.php");
 
 	function format_login_error($errors) {
 		return format_error_message("login",$errors);

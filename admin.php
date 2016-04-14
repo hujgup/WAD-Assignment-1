@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Cabs Online - Admin</title>
-	<link rel="stylesheet" href="style/admin.css" />
+	<link rel="stylesheet" href="admin.css" />
 	<?php
-		require_once("backend/admin_logic.php");
+		require_once("admin_logic.php");
 
 		$respond = isset($_POST["formID"]);
 	?>

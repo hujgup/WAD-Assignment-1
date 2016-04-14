@@ -1,21 +1,23 @@
 <?php
-	require_once("backend/common/session.php");
+	require_once("session.php");
+	require_once("redirect.php");
 
 	$message = NULL;
 	$redirect = Session::isActive();
 	if (!$redirect) {
-		require_once("backend/register_logic.php");
+		require_once("register_logic.php");
 		$message = register();
 		$redirect = $message === TRUE;
+		if ($redirect) {
+			require_once("login_logic.php");
+			if (!login($_POST["email"],$_POST["pwd"]) ) {
+				$message = "<p>You are now registered in the system, but a problem occured when trying to automatically log you in. Please manually log in <a href='login.php'>here</a>.</p>";
+				$redirect = FALSE;
+			}
+		}
 	}
 	if ($redirect) {
-		require_once("backend/login_logic.php");
-		if (login($_POST["email"],$_POST["pwd"]) ) {
-			require_once("backend/common/redirect.php");
-			redirect("booking.php");
-		} else {
-			$message = "<p>You are now registered in the system, but a problem occured when trying to automatically log you in. Please manually log in <a href='login.php'>here</a>.</p>";
-		}
+		redirect("booking.php");
 	}
 ?>
 <!DOCTYPE html>

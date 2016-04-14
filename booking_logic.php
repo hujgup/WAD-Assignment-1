@@ -1,11 +1,11 @@
 <?php
-	require_once(__DIR__."/common/session.php");
-	require_once(__DIR__."/common/expecting.php");
-	require_once(__DIR__."/common/sql.php");
-	require_once(__DIR__."/common/sql_table_Customers.php");
-	require_once(__DIR__."/common/sql_table_Bookings.php");
-	require_once(__DIR__."/common/format.php");
-	require_once(__DIR__."/common/timing.php");
+	require_once(__DIR__."/session.php");
+	require_once(__DIR__."/expecting.php");
+	require_once(__DIR__."/sql.php");
+	require_once(__DIR__."/sql_table_Customers.php");
+	require_once(__DIR__."/sql_table_Bookings.php");
+	require_once(__DIR__."/format.php");
+	require_once(__DIR__."/timing.php");
 
 	function resolve_post_ref(&$var) {
 		$var = trim($_POST[$var]);

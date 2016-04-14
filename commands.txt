@@ -1,0 +1,14 @@
+CREATE TABLE Customers (email VARCHAR(32) PRIMARY KEY NOT NULL,password VARCHAR(32) NOT NULL,name VARCHAR(64) NOT NULL,phone VARCHAR(10) NOT NULL);SHOW TABLES LIKE 'Customers';
+SELECT * FROM Customers WHERE email='someone@example.com';
+INSERT INTO Customers VALUES ('someone@example.com','password','John Citizen','9999999999');
+SHOW TABLES LIKE 'Customers';
+SELECT * FROM Customers WHERE email='someone@example.com' AND password='password';
+SELECT * FROM Customers WHERE email='someone@example.com';
+CREATE TABLE Bookings (referenceNumber INT NOT NULL AUTO_INCREMENT,email VARCHAR(32) NOT NULL,name VARCHAR(64) NOT NULL,phone VARCHAR(10) NOT NULL,unit INT,streetNum INT NOT NULL,streetName VARCHAR(32) NOT NULL,suburb VARCHAR(32) NOT NULL,destination VARCHAR(32) NOT NULL,pickupDate CHAR(10) NOT NULL,pickupTime CHAR(5) NOT NULL,status VARCHAR(10) NOT NULL DEFAULT 'unassigned',PRIMARY KEY (referenceNumber),FOREIGN KEY (email) REFERENCES Customers(email));
+SHOW TABLES LIKE 'Bookings';
+INSERT INTO Bookings (name,email,phone,streetName,suburb,destination,pickupDate,pickupTime,streetNum) VALUES ('Name Here','someone@example.com','6667772222','High Street Rd','Birmingham','Frankston','2016-04-14','12:00',88);
+SELECT referenceNumber,t1.name as pName,t2.name as cName,t1.phone,unit,streetNum,streetName,suburb,destination,pickupDate,pickupTime FROM Bookings AS t1 INNER JOIN Customers AS t2 ON t1.email = t2.email;
+SELECT * FROM Bookings WHERE referenceNumber='2';
+SELECT status FROM Bookings WHERE referenceNumber=2 AND status='unassigned';
+UPDATE Bookings SET status='assigned' WHERE referenceNumber=2;
+

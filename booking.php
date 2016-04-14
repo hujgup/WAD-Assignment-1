@@ -1,12 +1,12 @@
 <?php
-	require_once("backend/common/session.php");
+	require_once("session.php");
 
 	$message = "";
 	if (Session::isActive()) {
-		require_once("backend/booking_logic.php");
+		require_once("booking_logic.php");
 		$message = book();
 	} else {
-		require_once("backend/common/redirect.php");
+		require_once("redirect.php");
 		redirect("login.php");
 	}
 ?>
@@ -15,7 +15,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Cabs Online - Bookings</title>
-	<link rel="stylesheet" href="style/booking.css" />
+	<link rel="stylesheet" href="booking.css" />
 </head>
 <body>
 	<h1>Cabs Online - Bookings</h1>
