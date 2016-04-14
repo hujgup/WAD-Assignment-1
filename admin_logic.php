@@ -1,93 +1,113 @@
 <?php
-	require_once(__DIR__."/sql.php");
-	require_once(__DIR__."/sql_table_Customers.php");
-	require_once(__DIR__."/sql_table_Bookings.php");
-	require_once(__DIR__."/timing.php");
+	require_once(__DIR__.'/sql.php');
+	require_once(__DIR__.'/sql_table_Customers.php');
+	require_once(__DIR__.'/sql_table_Bookings.php');
+	require_once(__DIR__.'/timing.php');
 
-	function write_td($value) {
-		echo "<td>".$value."</td>";
+	/*
+		Puts some given data inside a td element.
+
+		@param $value - mixed - The value inside the td.
+		@return void
+	*/
+	function write_td($value)
+	{
+		return '<td>'.$value.'</td>';
 	}
-	function print_entries() {
+	/*
+		Attempts to return the entries in the Bookings table that have pickup times less than two hours from now.
+
+		@return void
+	*/
+	function print_entries()
+	{
+		$res = '';
 		$sql = create_connection();
 		if ($sql->connect_errno) {
-			echo "<p>MySQL error ".$sql->connect_errno.": ".$sql->connect_error."</p>";
+			$res .= '<p>MySQL error '.$sql->connect_errno.': '.$sql->connect_error.'</p>';
 		} else {
-			global $bookingsName;
-			global $customersName;
-			$bookings = new MySQLTable($sql,$bookingsName);
+			$bookings = new MySQLTable($sql,Bookings::NAME);
 			$rows = $bookings->select(array(
-				"referenceNumber",
-				"t1.name as pName",
-				"t2.name as cName",
-				"t1.phone",
-				"unit",
-				"streetNum",
-				"streetName",
-				"suburb",
-				"destination",
-				"pickupDate",
-				"pickupTime",
-				"status"
-			),NULL," AS t1 INNER JOIN ".$customersName." AS t2 ON t1.email = t2.email");
+				'referenceNumber',
+				't1.name as pName',
+				't2.name as cName',
+				't1.phone',
+				'unit',
+				'streetNum',
+				'streetName',
+				'suburb',
+				'destination',
+				'pickupDate',
+				'pickupTime',
+				'status'
+			), NULL, ' AS t1 INNER JOIN '.Customers::NAME.' AS t2 ON t1.email = t2.email');
 			$rows = get_rows($rows);
 			$sql->close();
 			$rowsToPrint = array();
 			foreach ($rows as $row) {
-				if (seconds_until($row["pickupDate"],$row["pickupTime"]) <= 7200 && $row["status"] === "unassigned") { // Number of seconds in an hour (2*60^2)
+				// Number of seconds in an hour = 2*60^2 = 7200
+				if (seconds_until($row['pickupDate'], $row['pickupTime']) <= 7200 && $row['status'] === 'unassigned') {
 					$rowsToPrint[] = $row;
 				}
 			}
 			if (count($rowsToPrint) !== 0) {
-				echo "<table class='unassigned'>";
-				echo "<tr>";
-				echo "<th>Reference #</th>";
-				echo "<th>Customer Name</th>";
-				echo "<th>Passenger Name</th>";
-				echo "<th>Passenger Contact Phone</th>";
-				echo "<th>Pick-Up Address</th>";
-				echo "<th>Destination Suburb</th>";
-				echo "<th>Pick-Up Time</th>";
-				echo "</tr>";
+				$res .= "<table class='unassigned'>";
+				$res .= '<tr>';
+				$res .= '<th>Reference #</th>';
+				$res .= '<th>Customer Name</th>';
+				$res .= '<th>Passenger Name</th>';
+				$res .= '<th>Passenger Contact Phone</th>';
+				$res .= '<th>Pick-Up Address</th>';
+				$res .= '<th>Destination Suburb</th>';
+				$res .= '<th>Pick-Up Time</th>';
+				$res .= '</tr>';
 				foreach ($rowsToPrint as $row) {
-					if (seconds_until($row["pickupDate"],$row["pickupTime"]) <= 7200) { // Number of seconds in an hour (2*60^2)
-						echo "<tr>";
-						write_td($row["referenceNumber"]);
-						write_td($row["cName"]);
-						write_td($row["pName"]);
-						write_td($row["phone"]);
-						write_td(($row["unit"] !== NULL && $row["unit"] !== "" ? $row["unit"]."/" : "").$row["streetNum"]." ".$row["streetName"].", ".$row["suburb"]);
-						write_td($row["destination"]);
-						write_td($row["pickupDate"]." ".$row["pickupTime"]);
-						echo "</tr>";
-					}
+					$res .= '<tr>';
+					$res .= write_td($row['referenceNumber"]);
+					$res .= write_td($row['cName']);
+					$res .= write_td($row['pName']);
+					$res .= write_td($row['phone']);
+					$res .= write_td(($row['unit'] !== NULL && $row['unit'] !== '' ? $row['unit'].'/' : '').$row['streetNum'].' '.$row['streetName'].', '.$row['suburb']);
+					$res .= write_td($row['destination']);
+					$res .= write_td($row['pickupDate'].' '.$row['pickupTime']);
+					$res .= '</tr>';
 				}
-				echo "</table>";
+				$res .= '</table>';
 			} else {
-				echo "<p>No bookings due in the next two hours exist.</p>";
+				$res .= '<p>No bookings due in the next two hours exist.</p>';
 			}
 		}
+		return $res;
 	}
-	function print_assign($ref) {
+	/*
+		Attempts to assign a taxi to a given booking.
+
+		@param $ref - int - The reference number of the booking to assign.
+		@return void
+	*/
+	function print_assign($ref)
+	{
+		$res = '';
 		$sql = create_connection();
 		if ($sql->connect_errno) {
-			echo "<p>MySQL error ".$sql->connect_errno.": ".$sql->connect_error."</p>";
+			$res .= '<p>MySQL error '.$sql->connect_errno.': '.$sql->connect_error.'</p>';
 		} else {
-			global $bookingsName;
-			$bookings = new MySQLTable($sql,$bookingsName);
-			if ($bookings->exists("referenceNumber",$ref)) {
-				$where = "referenceNumber=".$ref;
-				$result = $bookings->select("status",$where." AND status='unassigned'");
+			$bookings = new MySQLTable($sql, Bookings::NAME);
+			if ($bookings->exists('referenceNumber', $ref)) {
+				$where = 'referenceNumber='.$ref;
+				$result = $bookings->select('status', $where." AND status='unassigned'");
 				if ($result->num_rows === 1) {
-					$bookings->updateRow(array("status" => "'assigned'"),$where);
-					echo "<p>The booking request ".$ref." has been properly assigned.</p>";
+					$bookings->update_row(array('status' => "'assigned'"), $where);
+					$res .= '<p>The booking request '.$ref.' has been properly assigned.</p>';
 				} else {
-					echo "<p>That booking request has already been assigned.</p>";
+					$res .= '<p>That booking request has already been assigned.</p>';
 				}
 				$result->close();
 			} else {
-				echo "<p>An entry with that reference number does not exist.</p>";
+				$res .= '<p>An entry with that reference number does not exist.</p>';
 			}
 			$sql->close();
 		}
+		return $res;
 	}
 ?>

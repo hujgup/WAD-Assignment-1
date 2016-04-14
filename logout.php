@@ -1,5 +1,5 @@
 <?php
-	require_once("session.php");
+	require_once('session.php');
 ?>
 <!DOCTYPE html>
 <html lang="en-AU">
@@ -15,9 +15,9 @@
 		</nav>
 		<section>
 			<?php
-				if (Session::isActive()) {
+				if (Session::is_active()) {
 					Session::clear();
-					echo "<p>You have successfully logged out.</p>";
+					echo '<p>You have successfully logged out.</p>';
 				} else {
 					echo "<p>You cannot log out because you are not logged in. Were you looking for <a href='login.php'>the login page</a>?</p>";
 				}

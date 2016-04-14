@@ -5,9 +5,9 @@
 	<title>Cabs Online - Admin</title>
 	<link rel="stylesheet" href="admin.css" />
 	<?php
-		require_once("admin_logic.php");
+		require_once('admin_logic.php');
 
-		$respond = isset($_POST["formID"]);
+		$respond = isset($_POST['formID']);
 	?>
 </head>
 <body>
@@ -25,8 +25,8 @@
 		</section>
 		<section id="responseUnassigned">
 			<?php
-				if ($respond && $_POST["formID"] === "unassigned") {
-					print_entries();
+				if ($respond && $_POST['formID'] === 'unassigned') {
+					echo print_entries();
 				}
 			?>
 		</section>
@@ -42,11 +42,11 @@
 		</section>
 		<section id="responseAssign">
 			<?php
-				if ($respond && $_POST["formID"] === "assigned") {
-					if (isset($_POST["reference"]) && $_POST["reference"] !== "") {
-						print_assign($_POST["reference"]);
+				if ($respond && $_POST['formID'] === 'assigned') {
+					if (isset($_POST['reference']) && $_POST['reference'] !== "") {
+						echo print_assign($_POST['reference']);
 					} else {
-						echo "<p>No reference number specified!</p>";
+						echo '<p>No reference number specified!</p>';
 					}
 				}
 			?>

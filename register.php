@@ -1,23 +1,23 @@
 <?php
-	require_once("session.php");
-	require_once("redirect.php");
+	require_once('session.php');
+	require_once('redirect.php');
 
 	$message = NULL;
-	$redirect = Session::isActive();
+	$redirect = Session::is_active();
 	if (!$redirect) {
-		require_once("register_logic.php");
+		require_once('register_logic.php');
 		$message = register();
 		$redirect = $message === TRUE;
 		if ($redirect) {
-			require_once("login_logic.php");
-			if (!login($_POST["email"],$_POST["pwd"]) ) {
+			require_once('login_logic.php');
+			if (!login($_POST['email'], $_POST['pwd']) ) {
 				$message = "<p>You are now registered in the system, but a problem occured when trying to automatically log you in. Please manually log in <a href='login.php'>here</a>.</p>";
 				$redirect = FALSE;
 			}
 		}
 	}
 	if ($redirect) {
-		redirect("booking.php");
+		redirect('booking.php');
 	}
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
 		</section>
 		<section id="response">
 			<?php
-				if ($message !== "") {
+				if ($message !== '') {
 					echo $message;
 				}
 			?>

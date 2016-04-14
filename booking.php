@@ -1,13 +1,13 @@
 <?php
-	require_once("session.php");
+	require_once('session.php');
 
-	$message = "";
-	if (Session::isActive()) {
-		require_once("booking_logic.php");
+	$message = '';
+	if (Session::is_active()) {
+		require_once('booking_logic.php');
 		$message = book();
 	} else {
-		require_once("redirect.php");
-		redirect("login.php");
+		require_once('redirect.php');
+		redirect('login.php');
 	}
 ?>
 <!DOCTYPE html>
@@ -44,8 +44,8 @@
 		<section id="response">
 			<?php
 				if (is_array($message)) {
-					echo "<p>Thank you! Your booking reference number is ".$message["ref"].". We will pick up the passengers in front of your provided address at ".$message["time"]." on ".$message["date"].".</p>";
-				} elseif ($message !== "") {
+					echo '<p>Thank you! Your booking reference number is '.$message['ref'].'. We will pick up the passengers in front of your provided address at '.$message['time'].' on '.$message['date'].'.</p>';
+				} elseif ($message !== '') {
 					echo $message;
 				}
 			?>

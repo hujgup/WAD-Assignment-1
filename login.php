@@ -1,20 +1,20 @@
 <?php
-	require_once("session.php");
+	require_once('session.php');
 
 	$message = NULL;
-	$redirect = Session::isActive();
+	$redirect = Session::is_active();
 	if (!$redirect) {
-		require_once("expecting.php");
-		require_once("login_logic.php");
+		require_once('expecting.php');
+		require_once('login_logic.php');
 
-		if (expecting($_POST,array("email","pwd"))) {
-			$message = login($_POST["email"],$_POST["pwd"]);
+		if (expecting($_POST,array('email', 'pwd'))) {
+			$message = login($_POST['email'], $_POST['pwd']);
 		}
 		$redirect = $message === TRUE;
 	}
 	if ($redirect) {
-		require_once("redirect.php");
-		redirect("booking.php");
+		require_once('redirect.php');
+		redirect('booking.php');
 	}
 ?>
 <!DOCTYPE html>
@@ -43,7 +43,7 @@
 		</section>
 		<section id="response">
 			<?php
-				if ($message !== "") {
+				if ($message !== '') {
 					echo $message;
 				}
 			?>
